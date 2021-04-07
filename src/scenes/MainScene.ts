@@ -1,4 +1,5 @@
 import "../../assets/catapult4.png"
+import "../../assets/catapult5.png"
 import "../../assets/rock.png"
 import "../../assets/ground.png"
 import "../../assets/castle.png"
@@ -32,6 +33,7 @@ export class MainScene extends Scene {
 
     public preload() {
         this.load.spritesheet('catapult', './assets/catapult4.png', {frameWidth: 129, frameHeight: 107});
+        this.load.spritesheet('catapultBroken', './assets/catapult5.png', {frameWidth: 156, frameHeight: 146});
         this.load.spritesheet('rock', './assets/rock.png', {frameWidth: 22, frameHeight: 28});
         this.load.image('ground', './assets/ground.png');
         this.load.image('castle', './assets/castle.png');
@@ -66,6 +68,10 @@ export class MainScene extends Scene {
             .setInteractive()
             .setScale(0.5);
 
+        let catapultBroken = this.add.sprite(100, 480, "catapultBroken")
+            .setVisible(false)
+            .setScale(0.5);
+
         this.catapultEnemy = this.matter.add.sprite(1100, 480, "catapult")
             .setVisible(true)
             .setInteractive()
@@ -83,7 +89,11 @@ export class MainScene extends Scene {
         this.rock.setMass(2);
 
         this.rock.setOnCollideWith(this.catapultEnemy, () => {
-
+            catapultBroken.setVisible(true);
+            catapultBroken.setX(this.catapultEnemy.x);
+            catapultBroken.setY(this.catapultEnemy.y + 10);
+            catapultBroken.anims.play("catapultBroken");
+            this.catapultEnemy.visible = false;
         });
 
         this.rock.setOnCollideWith(this.ground, () => {
@@ -117,6 +127,15 @@ export class MainScene extends Scene {
             key: 'catapult',
             frames: this.anims.generateFrameNumbers('catapult', {first: 0, end: 9, start: 0}),
             frameRate: 8,
+            yoyo: false,
+            repeat: 0,
+            hideOnComplete: false
+        });
+
+        this.anims.create({
+            key: 'catapultBroken',
+            frames: this.anims.generateFrameNumbers('catapultBroken', {first: 0, end: 8, start: 0}),
+            frameRate: 5,
             yoyo: false,
             repeat: 0,
             hideOnComplete: false
