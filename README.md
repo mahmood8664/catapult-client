@@ -1,7 +1,5 @@
 # catapult-client
-Catapult battle game written by Phaser 3.
-
-To play this game go to: [http://mamiri.me/catapult](http://mamiri.me/catapult)
+Catapult battle game written by [Phaser 3](https://phaser.io/phaser3).
 
 To create docker image run:
 ```shell

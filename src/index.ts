@@ -21,7 +21,7 @@ export let config: Phaser.Types.Core.GameConfig = {
         default: 'matter',
         matter: {
             debug: false,
-            gravity: { y: 0.2 }
+            gravity: { y: 0.4 }
         }
     },
     scene: MainScene,
